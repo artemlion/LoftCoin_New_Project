@@ -4,6 +4,7 @@
     <attr name="walletCardBackground" format="color|reference" />
     <attr name="walletCardWidth" format="dimension|reference" />
     <attr name="walletCardHeight" format="dimension|reference" />
+    <attr name="splashTextView" format="reference" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
 
@@ -23,6 +24,8 @@
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
 
         <item name="bottomNavigationStyle">@style/AppTheme.BottomNavigationView</item>
+
+        <item name="splashTextView">@style/Widget.AppTheme.SplashTextView</item>
 
         <item name="buttonWelcome">@style/Widget.AppTheme.Button.Welcome</item>
         <item name="walletCardBackground">@color/dark_five</item>
@@ -50,6 +53,13 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingStart">64dp</item>
         <item name="android:paddingEnd">64dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.SplashTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.AppTheme" parent="TextAppearance.MaterialComponents.Body1" />

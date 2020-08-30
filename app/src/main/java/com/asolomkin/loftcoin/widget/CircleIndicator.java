@@ -1,5 +1,6 @@
 package com.asolomkin.loftcoin.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.asolomkin.loftcoin.R;
+
 public class CircleIndicator extends RecyclerView.ItemDecoration {
 
     private final Paint inactivePaint = new Paint();
@@ -19,14 +22,16 @@ public class CircleIndicator extends RecyclerView.ItemDecoration {
 
     private final float indicatorRadius;
 
+
     public CircleIndicator(@NonNull Context context) {
         final DisplayMetrics dm = context.getResources().getDisplayMetrics();
 
         indicatorRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, dm);
 
         inactivePaint.setStyle(Paint.Style.FILL);
-        inactivePaint.setColor(0x44ffffff); // White with alpha
+        inactivePaint.setColor(0x44ffffff);
         inactivePaint.setAntiAlias(true);
+
 
         activePaint.setStyle(Paint.Style.FILL);
         activePaint.setColor(Color.WHITE);
