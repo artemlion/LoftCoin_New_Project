@@ -5,6 +5,9 @@
     <attr name="walletCardWidth" format="dimension|reference" />
     <attr name="walletCardHeight" format="dimension|reference" />
     <attr name="splashTextView" format="reference" />
+    <attr name="symbolTextView" format="reference" />
+    <attr name="priceTextView" format="reference" />
+    <attr name="transactionTextView" format="reference" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
 
@@ -26,6 +29,12 @@
         <item name="bottomNavigationStyle">@style/AppTheme.BottomNavigationView</item>
 
         <item name="splashTextView">@style/Widget.AppTheme.SplashTextView</item>
+
+        <item name="symbolTextView">@style/Widget.AppTheme.SymbolTextView</item>
+
+        <item name="priceTextView">@style/Widget.AppTheme.PriceTextView</item>
+
+        <item name="transactionTextView">@style/Widget.AppTheme.TransactionTextView</item>
 
         <item name="buttonWelcome">@style/Widget.AppTheme.Button.Welcome</item>
         <item name="walletCardBackground">@color/dark_five</item>
@@ -60,6 +69,21 @@
         <item name="android:textSize">48sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.AppTheme.SymbolTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline3</item>
+    </style>
+
+    <style name="Widget.AppTheme.PriceTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
+    </style>
+
+    <style name="Widget.AppTheme.TransactionTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
     </style>
 
     <style name="TextAppearance.AppTheme" parent="TextAppearance.MaterialComponents.Body1" />
