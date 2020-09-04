@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="137" height="137" viewBox="0 0 137 137">
+    <defs>
+        <filter id="a" width="285.6%" height="285.6%" x="-92.8%" y="-92.8%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20.53"/>
+        </filter>
+        <linearGradient id="b" x1="87.353%" x2="26.294%" y1="18.714%" y2="97.465%">
+            <stop offset="0%" stop-color="#66688F"/>
+            <stop offset="100%" stop-color="#323348" stop-opacity=".01"/>
+        </linearGradient>
+        <linearGradient id="c" x1="131.445%" x2="51.368%" y1="53.906%" y2="180.86%">
+            <stop offset="0%" stop-color="#FF4465"/>
+            <stop offset="100%" stop-color="#F3FF00"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#F9A92E" fill-opacity=".5" d="M70.64 109.172c18.325 0 33.18-14.855 33.18-33.18 0-18.324-14.855-33.18-33.18-33.18-18.324 0-33.18 14.856-33.18 33.18 0 18.325 14.856 33.18 33.18 33.18z" filter="url(#a)"/>
+        <path fill="url(#b)" d="M68.5 137c37.832 0 68.5-30.668 68.5-68.5S106.332 0 68.5 0 0 30.668 0 68.5 30.668 137 68.5 137z" opacity=".2"/>
+        <path fill="url(#c)" d="M69.57 112.383c24.236 0 43.883-19.647 43.883-43.883 0-24.236-19.647-43.883-43.883-43.883-24.236 0-43.882 19.647-43.882 43.883 0 24.236 19.646 43.883 43.882 43.883z"/>
+    </g>
+</svg>
