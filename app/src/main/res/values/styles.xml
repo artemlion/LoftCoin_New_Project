@@ -8,6 +8,8 @@
     <attr name="symbolTextView" format="reference" />
     <attr name="priceTextView" format="reference" />
     <attr name="transactionTextView" format="reference" />
+    <attr name="textNegative" format="color|reference" />
+    <attr name="textPositive" format="color|reference" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
 
@@ -40,6 +42,8 @@
         <item name="walletCardBackground">@color/dark_five</item>
         <item name="walletCardWidth">240dp</item>
         <item name="walletCardHeight">160dp</item>
+        <item name="textNegative">@color/watermelon</item>
+        <item name="textPositive">@color/weird_green</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
