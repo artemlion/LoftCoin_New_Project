@@ -3,7 +3,9 @@ package com.asolomkin.loftcoin;
 import android.app.Application;
 import android.os.StrictMode;
 
-import androidx.viewbinding.BuildConfig;
+import com.asolomkin.loftcoin.util.DebugTree;
+
+import timber.log.Timber;
 
 public class LoftApp extends Application {
 
@@ -12,7 +14,8 @@ public class LoftApp extends Application {
         super.onCreate();
         if (BuildConfig.DEBUG) {
             StrictMode.enableDefaults();
+            Timber.plant(new DebugTree());
         }
-
     }
+
 }
