@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import com.asolomkin.loftcoin.util.RxSchedulers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Singleton
 class CmcCoinsRepo implements CoinsRepo {
@@ -38,9 +40,18 @@ class CmcCoinsRepo implements CoinsRepo {
             .doOnNext((coins) -> db.coins().insert(coins))
             .switchMap((coins) -> fetchFromDb(query))
             .switchIfEmpty(fetchFromDb(query))
-            .<List<Coin>>map(ArrayList::new)
+            .<List<Coin>>map(Collections::unmodifiableList)
             .subscribeOn(schedulers.io())
         ;
+    }
+
+    @NonNull
+    @Override
+    public Single<Coin> coin(@NonNull Currency currency, long id) {
+        return listings(Query.builder().currency(currency.code()).forceUpdate(false).build())
+            .switchMapSingle((coins) -> db.coins().fetchOne(id))
+            .firstOrError()
+            .map((coin) -> coin);
     }
 
     private Observable<List<RoomCoin>> fetchFromDb(Query query) {
