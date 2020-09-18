@@ -15,11 +15,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.asolomkin.loftcoin.BaseComponent;
 import com.asolomkin.loftcoin.R;
 import com.asolomkin.loftcoin.databinding.FragmentRatesBinding;
-import com.asolomkin.loftcoin.util.PriceFormatter;
+
+import javax.inject.Inject;
 
 public class RatesFragment extends Fragment {
+
+    private final RatesComponent component;
 
     private FragmentRatesBinding binding;
 
@@ -27,11 +31,19 @@ public class RatesFragment extends Fragment {
 
     private RatesViewModel viewModel;
 
+    @Inject
+    public RatesFragment(BaseComponent baseComponent) {
+        component = DaggerRatesComponent.builder()
+                .baseComponent(baseComponent)
+                .build();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(RatesViewModel.class);
-        adapter = new RatesAdapter(new PriceFormatter());
+        viewModel = new ViewModelProvider(this, component.viewModelFactory())
+                .get(RatesViewModel.class);
+        adapter = component.ratesAdapter();
     }
 
     @Nullable
@@ -48,6 +60,7 @@ public class RatesFragment extends Fragment {
         binding.recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.recycler.swapAdapter(adapter, false);
         binding.recycler.setHasFixedSize(true);
+        binding.refresher.setOnRefreshListener(viewModel::refresh);
         viewModel.coins().observe(getViewLifecycleOwner(), adapter::submitList);
         viewModel.isRefreshing().observe(getViewLifecycleOwner(), binding.refresher::setRefreshing);
     }
@@ -64,6 +77,9 @@ public class RatesFragment extends Fragment {
             NavHostFragment
                     .findNavController(this)
                     .navigate(R.id.currency_dialog);
+            return true;
+        } else if (R.id.sort_dialog == item.getItemId()) {
+            viewModel.switchSortingOrder();
             return true;
         }
         return super.onOptionsItemSelected(item);
