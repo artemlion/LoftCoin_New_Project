@@ -1,16 +1,17 @@
 package com.asolomkin.loftcoin.data;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.google.auto.value.AutoValue;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public interface CoinsRepo {
 
     @NonNull
-    LiveData<List<Coin>> listings(@NonNull Query query);
+    Observable<List<Coin>> listings(@NonNull Query query);
 
     @AutoValue
     abstract class Query {
