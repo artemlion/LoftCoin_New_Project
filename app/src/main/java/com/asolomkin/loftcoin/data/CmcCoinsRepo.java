@@ -41,17 +41,33 @@ class CmcCoinsRepo implements CoinsRepo {
             .switchMap((coins) -> fetchFromDb(query))
             .switchIfEmpty(fetchFromDb(query))
             .<List<Coin>>map(Collections::unmodifiableList)
-            .subscribeOn(schedulers.io())
-        ;
+            .subscribeOn(schedulers.io());
     }
 
     @NonNull
     @Override
     public Single<Coin> coin(@NonNull Currency currency, long id) {
         return listings(Query.builder().currency(currency.code()).forceUpdate(false).build())
-            .switchMapSingle((coins) -> db.coins().fetchOne(id))
-            .firstOrError()
-            .map((coin) -> coin);
+                .switchMapSingle((coins) -> db.coins().fetchOne(id))
+                .firstOrError()
+                .map((coin) -> coin);
+    }
+
+    @NonNull
+    @Override
+    public Single<Coin> nextPopularCoin(@NonNull Currency currency, List<Integer> ids) {
+        return listings(Query.builder().currency(currency.code()).forceUpdate(false).build())
+                .switchMapSingle((coins) -> db.coins().nextPopularCoin(ids))
+                .firstOrError()
+                .map((coin) -> coin);
+    }
+
+    @NonNull
+    @Override
+    public Observable<List<Coin>> topCoins(@NonNull Currency currency) {
+        return listings(Query.builder().currency(currency.code()).forceUpdate(false).build())
+                .switchMap((coins) -> db.coins().fetchTop(3))
+                .<List<Coin>>map(Collections::unmodifiableList);
     }
 
     private Observable<List<RoomCoin>> fetchFromDb(Query query) {
@@ -61,7 +77,6 @@ class CmcCoinsRepo implements CoinsRepo {
             return db.coins().fetchAllSortByRank();
         }
     }
-
 
     private List<RoomCoin> mapToRoomCoins(Query query, List<? extends Coin> data) {
         List<RoomCoin> roomCoins = new ArrayList<>(data.size());
@@ -78,4 +93,5 @@ class CmcCoinsRepo implements CoinsRepo {
         }
         return roomCoins;
     }
+
 }

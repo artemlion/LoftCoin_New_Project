@@ -15,10 +15,18 @@ public interface CoinsRepo {
     Observable<List<Coin>> listings(@NonNull Query query);
 
     @NonNull
-    Single<Coin> coin(Currency currency, long id);
+    Single<Coin> coin(@NonNull Currency currency, long id);
+
+    @NonNull
+    Single<Coin> nextPopularCoin(@NonNull Currency currency, List<Integer> ids);
+
+    @NonNull
+    Observable<List<Coin>> topCoins(@NonNull Currency currency);
 
     @AutoValue
     abstract class Query {
+
+        @NonNull
         public static Builder builder() {
             return new AutoValue_CoinsRepo_Query.Builder()
                     .forceUpdate(true)
@@ -40,8 +48,7 @@ public interface CoinsRepo {
             public abstract Builder sortBy(SortBy sortBy);
 
             public abstract Query build();
-
-
         }
     }
+
 }

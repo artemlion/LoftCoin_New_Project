@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asolomkin.loftcoin.BaseComponent;
 import com.asolomkin.loftcoin.R;
 import com.asolomkin.loftcoin.databinding.DialogCurrencyBinding;
-import com.asolomkin.loftcoin.util.OnItemClick;
+import com.asolomkin.loftcoin.widget.OnItemClick;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import javax.inject.Inject;

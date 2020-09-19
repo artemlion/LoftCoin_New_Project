@@ -2,6 +2,7 @@ package com.asolomkin.loftcoin;
 
 import android.app.Application;
 import android.os.StrictMode;
+import android.util.Log;
 
 import com.asolomkin.loftcoin.util.DebugTree;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -23,7 +24,7 @@ public class LoftApp extends Application {
                 .application(this)
                 .build();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            Timber.d("fcm: %s", instanceIdResult.getToken());
+            Log.d("fcm: %s", instanceIdResult.getToken());
         });
     }
 

@@ -17,4 +17,5 @@
     <string name="rub">Рубль</string>
     <string name="default_channel_id" translatable="false">default_channel</string>
     <string name="default_channel_name">@string/app_name</string>
+    <string name="add">Добавить</string>
 </resources>
