@@ -43,7 +43,7 @@ class WalletsViewModel extends ViewModel {
 
         wallets = currencyRepo.currency()
                 .switchMap(walletsRepo::wallets)
-                .doOnNext((wal) -> Log.d("%s", String.valueOf(wal)))
+                .doOnNext((wallets) -> Log.d("%s", String.valueOf(wallets)))
                 .replay(1)
                 .autoConnect();
 

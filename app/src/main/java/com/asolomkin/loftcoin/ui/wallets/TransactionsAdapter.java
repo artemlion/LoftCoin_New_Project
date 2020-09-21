@@ -1,5 +1,6 @@
 package com.asolomkin.loftcoin.ui.wallets;
 
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.V
     private final PriceFormatter priceFormatter;
 
     private LayoutInflater inflater;
+
+    private int colorNegative = Color.RED;
+
+    private int colorPositive = Color.GREEN;
 
     @Inject
     TransactionsAdapter(PriceFormatter priceFormatter) {
@@ -48,9 +53,19 @@ class TransactionsAdapter extends ListAdapter<Transaction, TransactionsAdapter.V
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Transaction transaction = getItem(position);
-        holder.binding.amount1.setText(priceFormatter.format(transaction.amount()));
+        if (transaction.amount() > 0) {
+            holder.binding.amount1.setText("+" + transaction.amount());
+        } else {
+            holder.binding.amount1.setText(String.valueOf(transaction.amount()));
+        }
         final double fiatAmount = transaction.amount() * transaction.coin().price();
-        holder.binding.amount2.setText(priceFormatter.format(transaction.coin().currencyCode(), fiatAmount));
+        if (transaction.amount() > 0) {
+            holder.binding.amount2.setTextColor(colorPositive);
+            holder.binding.amount2.setText("+" + priceFormatter.format(transaction.coin().currencyCode(), fiatAmount));
+        } else {
+            holder.binding.amount2.setTextColor(colorNegative);
+            holder.binding.amount2.setText(priceFormatter.format(transaction.coin().currencyCode(), fiatAmount));
+        }
         holder.binding.timestamp.setText(DateFormat.getDateFormat(inflater.getContext()).format(transaction.createdAt()));
     }
 
