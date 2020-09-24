@@ -30,6 +30,10 @@
 
         <item name="bottomNavigationStyle">@style/AppTheme.BottomNavigationView</item>
 
+        <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialog</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheet.Dialog</item>
+
         <item name="splashTextView">@style/Widget.AppTheme.SplashTextView</item>
 
         <item name="symbolTextView">@style/Widget.AppTheme.SymbolTextView</item>
@@ -49,6 +53,15 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:background">?attr/colorPrimary</item>
     </style>
+
+    <style name="AppTheme.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">@color/dark_four</item>
+    </style>
+
+    <style name="AppTheme.BottomSheet.Dialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <item name="colorSurface">@color/dark_four</item>
+    </style>
+
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 

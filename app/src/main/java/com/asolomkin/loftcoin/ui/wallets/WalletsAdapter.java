@@ -4,17 +4,48 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.asolomkin.loftcoin.BuildConfig;
+import com.asolomkin.loftcoin.data.Wallet;
 import com.asolomkin.loftcoin.databinding.LiWalletBinding;
+import com.asolomkin.loftcoin.util.BalanceFormatter;
+import com.asolomkin.loftcoin.util.ImageLoader;
+import com.asolomkin.loftcoin.widget.OutlineCircle;
+import com.asolomkin.loftcoin.util.PriceFormatter;
 
-class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.ViewHolder> {
+import java.util.Objects;
+
+import javax.inject.Inject;
+
+class WalletsAdapter extends ListAdapter<Wallet, WalletsAdapter.ViewHolder> {
+
+    private final PriceFormatter priceFormatter;
+
+    private final BalanceFormatter balanceFormatter;
+
+    private final ImageLoader imageLoader;
 
     private LayoutInflater inflater;
 
-    @Override
-    public int getItemCount() {
-        return 10;
+    @Inject
+    WalletsAdapter(PriceFormatter priceFormatter, BalanceFormatter balanceFormatter, ImageLoader imageLoader) {
+        super(new DiffUtil.ItemCallback<Wallet>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull Wallet oldItem, @NonNull Wallet newItem) {
+                return Objects.equals(oldItem.uid(), newItem.uid());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull Wallet oldItem, @NonNull Wallet newItem) {
+                return Objects.equals(oldItem, newItem);
+            }
+        });
+        this.priceFormatter = priceFormatter;
+        this.balanceFormatter = balanceFormatter;
+        this.imageLoader = imageLoader;
     }
 
     @NonNull
@@ -25,7 +56,14 @@ class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        final Wallet wallet = getItem(position);
+        holder.binding.symbol.setText(wallet.coin().symbol());
+        holder.binding.balance1.setText(balanceFormatter.format(wallet));
+        final double balance = wallet.balance() * wallet.coin().price();
+        holder.binding.balance2.setText(priceFormatter.format(wallet.coin().currencyCode(), balance));
+        imageLoader
+            .load(BuildConfig.IMG_ENDPOINT + wallet.coin().id() + ".png")
+            .into(holder.binding.logo);
     }
 
     @Override
@@ -36,9 +74,13 @@ class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        private final LiWalletBinding binding;
+
         ViewHolder(@NonNull LiWalletBinding binding) {
             super(binding.getRoot());
             binding.getRoot().setClipToOutline(true);
+            OutlineCircle.apply(binding.logo);
+            this.binding = binding;
         }
 
     }
