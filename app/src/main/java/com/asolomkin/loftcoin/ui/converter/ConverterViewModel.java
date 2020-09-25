@@ -77,6 +77,7 @@ class ConverterViewModel extends ViewModel {
         return fromValue
                 .observeOn(schedulers.cmp())
                 .map((s) -> s.isEmpty() ? "0.0" : s)
+                .map((s) -> s.equals(".") ? "0.0" : s)
                 .map(Double::parseDouble)
                 .flatMap((value) -> factor.map((f) -> value * f))
                 .map(v -> String.format(Locale.US, "%.2f", v))
