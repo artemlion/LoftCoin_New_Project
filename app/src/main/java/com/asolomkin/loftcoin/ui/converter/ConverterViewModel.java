@@ -81,6 +81,7 @@ class ConverterViewModel extends ViewModel {
                 .flatMap((value) -> factor.map((f) -> value * f))
                 .map(v -> String.format(Locale.US, "%.2f", v))
                 .map((v) -> "0.0".equals(v) ? "" : v)
+                .onErrorResumeNext(Observable.empty())
                 .observeOn(schedulers.main());
     }
 

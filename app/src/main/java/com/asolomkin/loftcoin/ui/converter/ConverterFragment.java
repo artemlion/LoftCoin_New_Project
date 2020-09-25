@@ -88,7 +88,8 @@ public class ConverterFragment extends Fragment {
                 .subscribe(text -> {
                     binding.from.setText(text);
                     binding.from.setSelection(text.length());
-                }));
+                }
+                ));
         disposable.add(viewModel.toValue()
                 .distinctUntilChanged()
                 .subscribe(text -> {
